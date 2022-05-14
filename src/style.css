@@ -19,3 +19,22 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+#modal{
+    text-align: center;
+}
+
+#modal::backdrop {
+    background-color: #0a0a0a;
+    opacity: .6;
+}
+
+#close-modal-button, #reset {
+    color: black;
+    background-color: #0bc6e5;
+    border: 1px solid black;
+}
+
+#close-modal-button:hover, #reset:hover {
+    background-color: #09889d;
+}

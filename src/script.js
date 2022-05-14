@@ -21,6 +21,7 @@ let colors = {
     1024: '#EDC301',
     2048: '#EFC231'
 }
+const modal = document.getElementById('modal')
 
 // Draw and create the field at the start of the game
 for (let i = 0; i < field.length; i++) {
@@ -166,6 +167,44 @@ function mergeDown() {
     }
 }
 
+function gameOver() {
+    let gameIsOver = true
+    for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[i].length - 1; j++) {
+            if (field[i][j] === field[i][j + 1] || field[i][j] * field[i][j + 1] === 0) {
+                gameIsOver = false
+            }
+        }
+    }
+    for (let i = 0; i < field.length - 1; i++) {
+        for (let j = 0; j < field[i].length; j++) {
+            if (field[i][j] === field[i + 1][j]) {
+                gameIsOver = false
+            }
+        }
+    }
+    if (gameIsOver) {
+        modal.showModal()
+    }
+}
+
+function reset() {
+    for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[i].length; j++) {
+            field[i][j] = 0
+        }
+    }
+}
+
+document.getElementById('close-modal-button').addEventListener('click', () => {
+    modal.close()
+})
+
+document.getElementById('reset').addEventListener('click', () => {
+    reset()
+    drawField()
+})
+
 window.addEventListener('keydown', (e) => {
     if (e.keyCode === 37 || e.keyCode === 65) {
         // A or arrow left was pressed
@@ -174,6 +213,7 @@ window.addEventListener('keydown', (e) => {
         moveLeft()
         addRandom()
         drawField()
+        gameOver()
     } else if (e.keyCode === 38 || e.keyCode === 87) {
         // W oder arrow up was pressed
         moveUp()
@@ -181,6 +221,7 @@ window.addEventListener('keydown', (e) => {
         moveUp()
         addRandom()
         drawField()
+        gameOver()
     } else if (e.keyCode === 39 || e.keyCode === 68) {
         // Move right
         moveRight()
@@ -188,6 +229,7 @@ window.addEventListener('keydown', (e) => {
         moveRight()
         addRandom()
         drawField()
+        gameOver()
     } else if (e.keyCode === 40 || e.keyCode === 83) {
         // Move down
         moveDown()
@@ -195,5 +237,6 @@ window.addEventListener('keydown', (e) => {
         moveDown()
         addRandom()
         drawField()
+        gameOver()
     }
 })
